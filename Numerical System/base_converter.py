@@ -1,3 +1,5 @@
+#dicts:
+
 #char -> int dict
 char_num = {'0' : 0, '1' : 1, '2' : 2, '3' : 3,
             '4' : 4, '5' : 5, '6' : 6, '7' : 7,
@@ -25,8 +27,25 @@ bcd = {0 : '0000', 1 : '0001', 2 : '0010', 3 : '0011', 4 : '0100',
        5 : '0101', 6 : '0110', 7 : '0111', 8 : '1000', 9 : '1001'}
 
 
-# to base ten function
-def to_base_ten(aa, base_a) -> float:
+
+#converter functions:
+
+#decimal to bcd converter
+def integer_to_bcd(aa) -> str:
+    assert type(aa) == int, "iThe input must be an integer!"
+    assert aa > -1, "The entered value must be greater than or equal to zero!"
+    
+    a = str(aa)
+    
+    out = ""
+    
+    for i in range(len(a)):
+        out = out + (bcd[int(a[i])])
+        
+    return out
+
+#to base ten converter function
+def to_base_ten(aa, base_aa) -> float:
     out = 0
     
     a = str(aa).upper()
@@ -40,31 +59,33 @@ def to_base_ten(aa, base_a) -> float:
         
         temp = a[i]
         
-        assert char_num[temp] < base_a, "invalid number entered!"
+        assert char_num[temp] < base_aa, "Invalid number entered!"
         
-        out += (char_num[temp]) * (base_a **  (int_count - 1 -i))
+        out += (char_num[temp]) * (base_aa **  (int_count - 1 -i))
     
     for i in range(int_count + 1, length):
         
         temp = a[i]
         
-        assert char_num[temp] < base_a, "invalid number entered!"
+        assert char_num[temp] < base_aa, "Invalid number entered!"
         
-        out += (char_num[temp]) * (base_a **  (int_count - i))
+        out += (char_num[temp]) * (base_aa **  (int_count - i))
         
     return out
         
     
-
+#base conversion function; This function can convert numbers in bases between 2 and 36.
 def base_a_to_base_b(aa, second_base, first_base=10, floating_point=10) -> str:
+    assert (first_base < 37 & first_base > 1), "The first base must be between 2 and 36!"
+    assert (second_base < 37 & second_base > 1), "The second base must be between 2 and 36!"
     
-    assert floating_point < 13 ,"floating point should be less than 13!"
+    assert floating_point < 13 ,"The number of decimal digits must be less than 13!"
     
     a = aa
     floating = 0.0
     
     if first_base != 10:
-        a = to_base_ten(a, base_a)
+        a = to_base_ten(a, first_base)
     else:
         a = float(a)
         
@@ -100,10 +121,3 @@ def base_a_to_base_b(aa, second_base, first_base=10, floating_point=10) -> str:
     
     return out
     
-    
-
-aa = input("Enter the number: ")
-base_a = int(input("Enter the first base: "))
-base_b = int(input("Enter the second base: "))
-
-print(base_a_to_base_b(aa, base_b, base_a))
