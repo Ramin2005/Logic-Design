@@ -23,10 +23,12 @@ num_char = {0 : '0', 1 : '1', 2 : '2', 3 : '3',
             32 : 'W', 33 : 'X', 34 : 'Y', 35 : 'Z'}
 
 #int -> bcd code dict
-bcd = {0 : '0000', 1 : '0001', 2 : '0010', 3 : '0011', 4 : '0100',
-       5 : '0101', 6 : '0110', 7 : '0111', 8 : '1000', 9 : '1001'}
+int_bcd = {0 : '0000', 1 : '0001', 2 : '0010', 3 : '0011', 4 : '0100',
+           5 : '0101', 6 : '0110', 7 : '0111', 8 : '1000', 9 : '1001'}
 
-
+#bcd code -> int dict
+bcd_int = {'0000' : 0, '0001' : 1, '0010' : 2, '0011' : 3, '0100' : 4,
+           '0101' : 5, '0110' : 6, '0111' : 7, '1000' : 8, '1001' : 9}
 
 #converter functions:
 
@@ -40,7 +42,28 @@ def integer_to_bcd(aa) -> str:
     out = ""
     
     for i in range(len(a)):
-        out = out + (bcd[int(a[i])])
+        out = out + (int_bcd[int(a[i])])
+        
+    return out
+
+#bcd to integer converter
+def bcd_to_integer(aa) -> int:
+    
+    a = str(aa)
+    
+    assert len(a) % 4 == 0, "Invalid bcd code entered!"
+    
+    count_0 = a.count('0')
+    count_1 = a.count('1')
+    
+    assert (count_0 + count_1) == len(a), "Invalid bcd code entered!"
+    
+    out = 0;
+    for i in range(0, len(a), 4):
+        
+        temp = a[i: i + 4]
+        
+        out = 10 * out + bcd_int[temp]
         
     return out
 
@@ -120,4 +143,3 @@ def base_a_to_base_b(aa, second_base, first_base=10, floating_point=10) -> str:
             out = out + str(num_char[temp])
     
     return out
-    
