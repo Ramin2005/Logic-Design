@@ -67,35 +67,39 @@ def bcd_to_integer(aa) -> int:
         
     return out
 
-#to base ten converter function
-def to_base_ten(aa, base_aa) -> float:
+# to base ten function
+def to_base_ten(aa, base_a) -> float:
     out = 0
     
-    a = str(aa).upper()
+    a = str(aa)
     
     point = a.find('.')
     length = len(a)
-    int_count = point
-    float_count = (length - point - 1)
-    #43210.123 9
+    
+    if point > -1:
+        int_count = point
+    else: 
+        int_count = length
+        
     for i in range(int_count):
         
         temp = a[i]
         
-        assert char_num[temp] < base_aa, "Invalid number entered!"
         
-        out += (char_num[temp]) * (base_aa **  (int_count - 1 -i))
-    
-    for i in range(int_count + 1, length):
+        assert char_num[temp] < base_a, "invalid number entered!"
         
-        temp = a[i]
+        out += (char_num[temp]) * (base_a **  (int_count - 1 -i))
         
-        assert char_num[temp] < base_aa, "Invalid number entered!"
+    if(int_count < length):
+        for i in range(int_count + 1, length):
         
-        out += (char_num[temp]) * (base_aa **  (int_count - i))
+            temp = a[i]
+        
+            assert char_num[temp] < base_a, "invalid number entered!"
+        
+            out += (char_num[temp]) * (base_a **  (int_count - i))
         
     return out
-        
     
 #base conversion function; This function can convert numbers in bases between 2 and 36.
 def base_a_to_base_b(aa, second_base, first_base=10, floating_point=10) -> str:
