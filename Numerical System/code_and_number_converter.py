@@ -68,7 +68,7 @@ def bcd_to_integer(aa) -> int:
     return out
 
 # to base ten function
-def to_base_ten(aa, base_a) -> float:
+def to_base_ten(aa, base_aa) -> float:
     out = 0
     
     a = str(aa)
@@ -86,18 +86,18 @@ def to_base_ten(aa, base_a) -> float:
         temp = a[i]
         
         
-        assert char_num[temp] < base_a, "invalid number entered!"
+        assert char_num[temp] < base_aa, "invalid number entered!"
         
-        out += (char_num[temp]) * (base_a **  (int_count - 1 -i))
+        out += (char_num[temp]) * (base_aa **  (int_count - 1 -i))
         
     if(int_count < length):
         for i in range(int_count + 1, length):
         
             temp = a[i]
         
-            assert char_num[temp] < base_a, "invalid number entered!"
+            assert char_num[temp] < base_aa, "invalid number entered!"
         
-            out += (char_num[temp]) * (base_a **  (int_count - i))
+            out += (char_num[temp]) * (base_aa **  (int_count - i))
         
     return out
     
