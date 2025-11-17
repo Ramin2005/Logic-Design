@@ -33,20 +33,44 @@ bcd_int = {'0000' : 0, '0001' : 1, '0010' : 2, '0011' : 3, '0100' : 4,
 #converter functions:
 
 #grey to any number in base between 2 and 36
-def base_a_to_grey(aa, base_aa) -> str:
-    assert (base_aa < 37 & base_aa > 1), "The base must be between 2 and 36!"
+def number_to_grey_code(aa, first_base) -> str:
+    assert not(first_base < 37 & first_base > 1), "The base must be between 2 and 36!"
     
-    a = str(aa)
-    assert (a.find(".") < 0), "The first number must be integer!"
+    binary_code = str(aa)
+    assert (binary_code.find(".") < 0), "The first number must be integer!"
     
-    binary_code = base_converter(a, 2, first_base=base_aa, floating_point=0)
+     
+    if first_base != 2:
+        binary_code = base_converter(binary_code, 2, first_base=first_base, floating_point=0)
     
-    return ""
+    out = binary_code[0]
+    for i in range(1, len(binary_code)):
+        temp = '0'
+        if (int(binary_code[i]) ^ int(binary_code[i - 1])):
+            temp = '1'
+        out = out + temp
+        
+    return out
 
 #grey to any number in base between 2 and 36
-def grey_to_base_a(grey, base_aa) -> str:
-    assert (base_aa < 37 & base_aa > 1), "The base must be between 2 and 36!"
-    return ""
+def grey_code_to_number(grey, base_out) -> str:
+    assert not(base_out < 37 & base_out > 1), "The base must be between 2 and 36!"
+    
+    grey_code = grey
+    
+    count_0 = grey_code.count('0')
+    count_1 = grey_code.count('1')
+    
+    assert (count_0 + count_1) == len(grey_code), "Invalid grey code entered!"
+    
+    out = grey_code[0]
+    for i in range(1, len(grey_code)):
+        temp = '0'
+        if (int(grey_code[i]) ^ int(out[i - 1])):
+            temp = '1'
+        out = out + temp
+
+    return base_converter(out, base_out, first_base=2, floating_point=0)
 
 #decimal to bcd converter
 def integer_to_bcd(aa) -> str:
@@ -84,7 +108,7 @@ def bcd_to_integer(aa) -> int:
     return out
 
 # to base ten function
-def to_base_ten(aa, base_aa) -> float:
+def to_base_ten(aa, first_base) -> float:
     out = 0
     
     a = str(aa)
@@ -102,25 +126,25 @@ def to_base_ten(aa, base_aa) -> float:
         temp = a[i]
         
         
-        assert char_num[temp] < base_aa, "invalid number entered!"
+        assert char_num[temp] < first_base, "invalid number entered!"
         
-        out += (char_num[temp]) * (base_aa **  (int_count - 1 -i))
+        out += (char_num[temp]) * (first_base **  (int_count - 1 -i))
         
     if(int_count < length):
         for i in range(int_count + 1, length):
         
             temp = a[i]
         
-            assert char_num[temp] < base_aa, "invalid number entered!"
+            assert char_num[temp] < first_base, "invalid number entered!"
         
-            out += (char_num[temp]) * (base_aa **  (int_count - i))
+            out += (char_num[temp]) * (first_base **  (int_count - i))
         
     return out
     
 #base conversion function; This function can convert numbers in bases between 2 and 36.
 def base_converter(aa, second_base, first_base=10, floating_point=10) -> str:
-    assert (first_base < 37 & first_base > 1), "The first base must be between 2 and 36!"
-    assert (second_base < 37 & second_base > 1), "The second base must be between 2 and 36!"
+    assert not(first_base < 37 & first_base > 1), "The first base must be between 2 and 36!"
+    assert not(second_base < 37 & second_base > 1), "The second base must be between 2 and 36!"
     
     assert floating_point < 13 ,"The number of decimal digits must be less than 13!"
     
