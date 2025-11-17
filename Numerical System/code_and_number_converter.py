@@ -32,6 +32,22 @@ bcd_int = {'0000' : 0, '0001' : 1, '0010' : 2, '0011' : 3, '0100' : 4,
 
 #converter functions:
 
+#grey to any number in base between 2 and 36
+def base_a_to_grey(aa, base_aa) -> str:
+    assert (base_aa < 37 & base_aa > 1), "The base must be between 2 and 36!"
+    
+    a = str(aa)
+    assert (a.find(".") < 0), "The first number must be integer!"
+    
+    binary_code = base_converter(a, 2, first_base=base_aa, floating_point=0)
+    
+    return ""
+
+#grey to any number in base between 2 and 36
+def grey_to_base_a(grey, base_aa) -> str:
+    assert (base_aa < 37 & base_aa > 1), "The base must be between 2 and 36!"
+    return ""
+
 #decimal to bcd converter
 def integer_to_bcd(aa) -> str:
     assert type(aa) == int, "iThe input must be an integer!"
@@ -102,7 +118,7 @@ def to_base_ten(aa, base_aa) -> float:
     return out
     
 #base conversion function; This function can convert numbers in bases between 2 and 36.
-def base_a_to_base_b(aa, second_base, first_base=10, floating_point=10) -> str:
+def base_converter(aa, second_base, first_base=10, floating_point=10) -> str:
     assert (first_base < 37 & first_base > 1), "The first base must be between 2 and 36!"
     assert (second_base < 37 & second_base > 1), "The second base must be between 2 and 36!"
     
@@ -132,7 +148,7 @@ def base_a_to_base_b(aa, second_base, first_base=10, floating_point=10) -> str:
     
         out = str(num_char[temp]) + out 
     
-    if floating != 0:
+    if floating != 0 & floating_point > 0:
         
         out = out + '.'
         
