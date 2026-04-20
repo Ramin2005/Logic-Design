@@ -33,7 +33,7 @@ bcd_int = {'0000' : 0, '0001' : 1, '0010' : 2, '0011' : 3, '0100' : 4,
 #converter functions:
 
 #grey to any number in base between 2 and 36
-def number_to_grey_code(aa, first_base) -> str:
+def number_to_grey_code(aa, first_base=2) -> str:
     assert not(first_base < 37 & first_base > 1), "The base must be between 2 and 36!"
     
     binary_code = str(aa)
@@ -53,7 +53,7 @@ def number_to_grey_code(aa, first_base) -> str:
     return out
 
 #grey to any number in base between 2 and 36
-def grey_code_to_number(grey, base_out) -> str:
+def grey_code_to_number(grey: str, base_out=2) -> str:
     assert not(base_out < 37 & base_out > 1), "The base must be between 2 and 36!"
     
     grey_code = grey
@@ -73,7 +73,7 @@ def grey_code_to_number(grey, base_out) -> str:
     return base_converter(out, base_out, first_base=2, floating_point=0)
 
 #decimal to bcd converter
-def integer_to_bcd(aa) -> str:
+def integer_to_bcd(aa: int) -> str:
     assert type(aa) == int, "iThe input must be an integer!"
     assert aa > -1, "The entered value must be greater than or equal to zero!"
     
@@ -87,7 +87,7 @@ def integer_to_bcd(aa) -> str:
     return out
 
 #bcd to integer converter
-def bcd_to_integer(aa) -> int:
+def bcd_to_integer(aa: str) -> int:
     
     a = str(aa)
     
@@ -108,7 +108,7 @@ def bcd_to_integer(aa) -> int:
     return out
 
 # to base ten function
-def to_base_ten(aa, first_base) -> float:
+def to_base_ten(aa, first_base: int) -> float:
     out = 0
     
     a = str(aa)
@@ -141,22 +141,25 @@ def to_base_ten(aa, first_base) -> float:
         
     return out
     
-#base conversion function; This function can convert numbers in bases between 2 and 36.
-def base_converter(aa, second_base, first_base=10, floating_point=10) -> str:
+    
+def base_converter(aa: str | int | float, second_base: int, first_base=10, floating_point=10) -> str:
+    # 
+    # base conversion function; This function can convert numbers in bases between 2 and 36.
+    #
+    
     assert not(first_base < 37 & first_base > 1), "The first base must be between 2 and 36!"
     assert not(second_base < 37 & second_base > 1), "The second base must be between 2 and 36!"
     
     assert floating_point < 13 ,"The number of decimal digits must be less than 13!"
     
     a = aa
-    floating = 0.0
     
     if first_base != 10:
         a = to_base_ten(a, first_base)
     else:
         a = float(a)
         
-    floating = a % 1
+    fractional = a % 1
     a = int(a)
     
     out = ''
@@ -172,17 +175,17 @@ def base_converter(aa, second_base, first_base=10, floating_point=10) -> str:
     
         out = str(num_char[temp]) + out 
     
-    if floating != 0 & floating_point > 0:
+    if floating_point > 0 and fractional:
         
         out = out + '.'
         
         counter = 1
         
-        while counter <= floating_point and floating > 1e-13:
+        while counter <= floating_point and fractional > 1e-13:
             counter += 1
             
-            temp = floating * second_base // 1
-            floating = floating * second_base - temp
+            temp = int(fractional * second_base // 1)
+            fractional = fractional * second_base - temp
             
             out = out + str(num_char[temp])
     
