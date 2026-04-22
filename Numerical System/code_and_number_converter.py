@@ -34,7 +34,7 @@ bcd_int = {'0000' : 0, '0001' : 1, '0010' : 2, '0011' : 3, '0100' : 4,
 
 #grey to any number in base between 2 and 36
 def number_to_grey_code(aa, first_base=2) -> str:
-    assert not(first_base < 37 & first_base > 1), "The base must be between 2 and 36!"
+    assert (first_base < 37 and first_base > 1), "The base must be between 2 and 36!"
     
     binary_code = str(aa)
     assert (binary_code.find(".") < 0), "The first number must be integer!"
@@ -147,8 +147,8 @@ def base_converter(aa: str | int | float, second_base: int, first_base=10, float
     # base conversion function; This function can convert numbers in bases between 2 and 36.
     #
     
-    assert not(first_base < 37 & first_base > 1), "The first base must be between 2 and 36!"
-    assert not(second_base < 37 & second_base > 1), "The second base must be between 2 and 36!"
+    assert (first_base < 37 and first_base > 1), "The first base must be between 2 and 36!"
+    assert (second_base < 37 and second_base > 1), "The second base must be between 2 and 36!"
     
     assert floating_point < 13 ,"The number of decimal digits must be less than 13!"
     

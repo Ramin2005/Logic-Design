@@ -1,5 +1,7 @@
 import code_and_number_converter
+import os
 
+os.system('cls')
 n = input("Enter number: ")
 b1 = int(input("Enter first base of number: "))
 b2 = int(input("Enter second base: "))
