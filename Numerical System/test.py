@@ -16,7 +16,7 @@ while True:
         break   
 
             
-    while b1 < 2 and b1 > 36:
+    while b1 < 2 or b1 > 36:
         print("Base must be between 2 to 36.")
         
         try:
@@ -28,7 +28,7 @@ while True:
             input("Press enter to continue. ")
             os.system('cls')
             
-    while b2 < 2 and b2 > 36:
+    while b2 < 2 or b2 > 36:
         print("Base must be between 2 to 36.")
         
         try:
