@@ -1,12 +1,12 @@
 import code_and_number_converter
 import os
 
-n = ""
-b1 = -1
-b2 = -1
+
 
 while True:
-    n = -1
+    n = ""
+    b1 = -1
+    b2 = -1
     
     os.system('cls')
     print("Enter negative number to exit program.")
@@ -45,6 +45,8 @@ while True:
     
     try:   
         print(f"{n} from base {b1} to base {b2}:",code_and_number_converter.base_converter(n, b2, first_base=b1, floating_point=12))
+        print()
+        print()
     except:
         print("Entered number is invalid!")
 
