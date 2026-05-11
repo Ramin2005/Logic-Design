@@ -4,7 +4,7 @@ import mapper
 
 #grey to any number in base between 2 and 36
 def number_to_grey_code(aa, first_base=2) -> str:
-    assert (first_base < 37 and first_base > 1), "The base must be between 2 and 36!"
+    assert 2 <= first_base <= 36, "The first base must be between 2 and 36!"
     
     binary_code = str(aa)
     assert (binary_code.find(".") < 0), "The first number must be integer!"
@@ -24,7 +24,7 @@ def number_to_grey_code(aa, first_base=2) -> str:
 
 #grey to any number in base between 2 and 36
 def grey_code_to_number(grey: str, base_out=2) -> str:
-    assert not(base_out < 37 & base_out > 1), "The base must be between 2 and 36!"
+    assert 2 <= base_out <= 36, "The base must be between 2 and 36!"
     
     grey_code = grey
     
@@ -44,7 +44,7 @@ def grey_code_to_number(grey: str, base_out=2) -> str:
 
 #decimal to bcd converter
 def integer_to_bcd(aa: int) -> str:
-    assert type(aa) == int, "iThe input must be an integer!"
+    assert type(aa) == int, "The input must be an integer!"
     assert aa > -1, "The entered value must be greater than or equal to zero!"
     
     a = str(aa)
@@ -113,12 +113,12 @@ def to_base_ten(aa, first_base: int) -> float:
     
     
 def base_converter(aa: str | int | float, second_base: int, first_base=10, floating_point=10) -> str:
-    # 
-    # base conversion function; This function can convert numbers in bases between 2 and 36.
-    #
+    """
+    base conversion function; This function can convert numbers in bases between 2 and 36.
+    """
     
-    assert (first_base < 37 and first_base > 1), "The first base must be between 2 and 36!"
-    assert (second_base < 37 and second_base > 1), "The second base must be between 2 and 36!"
+    assert 2 <= first_base <= 36, "The first base must be between 2 and 36!"
+    assert 2 <= second_base <= 36, "The second base must be between 2 and 36!"
     
     assert floating_point < 13 ,"The number of decimal digits must be less than 13!"
     
@@ -154,7 +154,7 @@ def base_converter(aa: str | int | float, second_base: int, first_base=10, float
         while counter <= floating_point and fractional > 1e-13:
             counter += 1
             
-            temp = int(fractional * second_base // 1)
+            temp = int(fractional * second_base)
             fractional = fractional * second_base - temp
             
             out = out + str(mapper.ValueToDigit(temp))
