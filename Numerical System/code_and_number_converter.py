@@ -44,7 +44,6 @@ def grey_code_to_number(grey: str, base_out=2) -> str:
 
 #decimal to bcd converter
 def integer_to_bcd(aa: int) -> str:
-    assert type(aa) == int, "The input must be an integer!"
     assert aa > -1, "The entered value must be greater than or equal to zero!"
     
     a = str(aa)
